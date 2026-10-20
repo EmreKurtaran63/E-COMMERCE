@@ -1,37 +1,42 @@
-name: Deploy React App
+
+
+name: Deploy React Project to Hostinger Subfolder
 
 on:
   push:
     branches:
-      - main # Repository ana dalın 'master' ise burayı 'master' yap
+      - main # Veya projenizin ana dalı 'master' ise 'master' yazın
 
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
+      # 1. Kodları depodan çek
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      # 2. Node.js ortamını kur
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    - name: Install Dependencies & Build
-      run: |
-        npm ci
-        npm run build
-      # EĞER PROJENDE API KEY VARSA aşağıdaki env bloğunu aç:
-      # env:
-      #   VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+      # 3. Bağımlılıkları yükle ve Build al
+      - name: Install Dependencies & Build React App
+        run: |
+          npm ci
+          npm run build
 
-    - name: 📂 Sync files via FTP
-      uses: SamKirsch/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        # YENİ PROJENİN SUNUCUDAKİ HEDEF KLASÖR YOLU:
-        server-dir: /htdocs/React_Projelerim/E_Commerce/
-        local-dir: ./dist/
+      # 4. Derlenen çıktıları (dist) Hostinger'daki hedef klasöre aktar
+      - name: Deploy via FTP to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Hostinger üzerindeki hedef alt klasörünüz:
+          server-dir: /htdocs/Websitelerim/React_Projelerim/E_Commerce/
+          # Vite kullanıyorsanız derleme çıktısı './dist/' klasörüne oluşur.
+          # (Eğer Create React App kullanıyorsanız burayı './build/' yapın)
+          local-dir: ./dist/
