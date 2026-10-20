@@ -1,0 +1,11 @@
+# Alt klasördeki statik dosyaların doğrudan sunulmasına izin ver
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+# Dosya veya klasör gerçekten varsa direkt çalıştır (js, css, png vs.)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Yoksa index.html'e yönlendir
+RewriteRule ^ index.html [L]

@@ -1,0 +1,37 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main # Repository ana dalın 'master' ise burayı 'master' yap
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies & Build
+      run: |
+        npm ci
+        npm run build
+      # EĞER PROJENDE API KEY VARSA aşağıdaki env bloğunu aç:
+      # env:
+      #   VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+
+    - name: 📂 Sync files via FTP
+      uses: SamKirsch/ftp-deploy-action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # YENİ PROJENİN SUNUCUDAKİ HEDEF KLASÖR YOLU:
+        server-dir: /htdocs/React_Projelerim/E_Commerce/
+        local-dir: ./dist/

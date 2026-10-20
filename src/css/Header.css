@@ -1,0 +1,30 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+.logo {
+    width: 63px;
+    height: 63px;
+    transition: all 0.1s ease-in-out;
+}
+
+.logo:hover {
+    cursor: pointer;
+    scale: 1.2;
+}
+
+.logo-text {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.headerIcon {
+    font-size: 22px;
+    transition: all 0.1s ease-in-out;
+}
+
+.headerIcon:hover {
+    cursor: pointer;
+    scale: 1.2;
+}
