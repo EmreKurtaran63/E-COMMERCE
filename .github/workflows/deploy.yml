@@ -30,7 +30,7 @@ jobs:
 
       # 4. Derlenen çıktıları (dist) Hostinger'daki hedef klasöre aktar
       - name: Deploy via FTP to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirsch/ftp-deploy-action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
