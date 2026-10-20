@@ -27,7 +27,7 @@ jobs:
       #   VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
     - name: 📂 Sync files via FTP
-      uses: SamKirsch/ftp-deploy-action@v4.3.4
+      uses: SamKirsch/FTP-Deploy-Action@v4.3.4
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
