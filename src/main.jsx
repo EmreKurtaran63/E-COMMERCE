@@ -8,9 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
+        { //Normal Kullanım        <BrowserRouter basename="/">
+        }
         <BrowserRouter basename="/Websitelerim/React_Projelerim/E_Commerce">
             <App />
         </BrowserRouter>
-    </Provider>
+    </Provider >
 
 )

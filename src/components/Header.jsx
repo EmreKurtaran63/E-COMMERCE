@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDrawer } from "../redux/slices/basketSlice";
 import { setFilter } from '../redux/slices/productsSlice';
 import { setTheme } from '../redux/slices/appSlice';
+import logo from "../images/LogoLight.png";
 
 function Header() {
   const navigate = useNavigate();
@@ -20,12 +21,12 @@ function Header() {
   useEffect(() => {
     console.log(isDarkTheme)
     if (isDarkTheme) {
-      root.style.backgroundColor = "black";
-      root.style.color = "white";
+      document.body.style.backgroundColor = "black";
+      document.body.style.color = "white";
     }
     else {
-      root.style.backgroundColor = "white";
-      root.style.color = "black";
+      document.body.style.backgroundColor = "white";
+      document.body.style.color = "black";
     }
     console.log(isDarkTheme)
   }, [isDarkTheme]);
@@ -50,7 +51,7 @@ function Header() {
     <div className='flex-row-between'>
 
       <div className='flex-column'>
-        <img className='logo' src="./src/images/LogoLight.png" onClick={() => navigate("/")} />
+        <img className='logo' src={logo} onClick={() => navigate("/")} />
         <p className='logo-text'>Neşeli Bir Stüdyo A.Ş</p>
       </div>
 
